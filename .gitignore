@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+out/
+build/
+dist/
+.omp/agent/
+.DS_Store
