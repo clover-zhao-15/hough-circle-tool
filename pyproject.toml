@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hough-circle-tool"
+version = "0.1.0"
+description = "PySide6 desktop tool for Hough circle detection"
+requires-python = ">=3.11"
+dependencies = ["PySide6==6.12.0"]
+
+[project.scripts]
+hough-circle-tool = "hough_circle_tool.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
