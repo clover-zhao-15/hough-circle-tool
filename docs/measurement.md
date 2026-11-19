@@ -57,8 +57,39 @@ wayland PySide6.QtCore.QSize(1280, 800)
 ['Noto Sans CJK HK', 'Noto Sans CJK JP']
 ```
 
-## 待实现后补充
+## GUI 验收（2026-11-18）
 
-- `python -m hough_circle_tool` 的实际启动与两图验收输出。
-- `docs/acceptance/` 标注结果图的导出记录。
-- `pytest -q` 输出。
+```text
+$ .venv/bin/python -m hough_circle_tool
+# WSLg 中窗口正常显示，Qt 平台 wayland
+
+coins.jpg: 2 circles -> [Circle(x=568, y=192, radius=180),
+                         Circle(x=192, y=190, radius=178)] | 46.5 ms
+export: docs/acceptance/coins_annotated.png True
+
+cookie-plate.png: 1 circles -> [Circle(x=264, y=258, radius=244)] | 8.4 ms
+export: docs/acceptance/cookie-plate_annotated.png True
+```
+
+标注图尺寸与输入一致：硬币图 760×385，饼干盘图 520×520。
+
+## 边界行为
+
+```text
+$ .venv/bin/python - <<'EOF'   # 重复路径、缺失文件、非法半径
+duplicate add: [PosixPath('.../examples/coins.jpg')]
+list count: 1
+missing add: []
+status: 无法读取: missing.png
+invalid params rejected: minRadius 不能大于 maxRadius
+param2 spin change ok: 30
+EOF
+```
+
+## 自动化测试
+
+```text
+$ pytest -q
+...........                                                              [100%]
+11 passed in 0.37s
+```
